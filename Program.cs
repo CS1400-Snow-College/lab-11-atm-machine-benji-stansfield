@@ -1,9 +1,11 @@
 ﻿/*Benji Stansfield, 04-09-25, Lab 11 "ATM Machine"*/
+
 Console.Clear();
 
 string[] lines = File.ReadAllLines("bank.txt");
 int attempts = 3;
 bool loggedIn = false;
+decimal balance = 0;
 
 while (!loggedIn && attempts > 0)
 {
@@ -18,10 +20,10 @@ while (!loggedIn && attempts > 0)
 
         string username = parts[0];
         string pin = parts[1];
-        string balance = parts[2];
 
         if (usernameInput == username && pinInput == pin)
-        {
+        {   
+            balance = Convert.ToDecimal(parts[2]);
             Console.Write("Sign in successful");
             loggedIn = true;
             break;
@@ -53,18 +55,31 @@ while(loggedIn)
     switch (menuSelection)
     {
         case 1:
-            CheckBalance();
+            CheckBalance(balance);
+            break;
+        case 2:
+            Withdraw(balance);
+            break;
+        case 3:
+            Deposit(balance);
+            break;
+        case 5:
+            QuickWithdraw40(balance);
+            break;
+        case 6:
+            QuickWithdraw100(balance);
             break;
     }
 
 }
 
-static void CheckBalance()
+static decimal CheckBalance(decimal balance)
 {
-    Console.WriteLine($"Your current balance is {parts[2]}.");
+    Console.WriteLine($"Your current balance is {balance}.");
+    return balance;
 }
 
-static void Withdraw()
+static decimal Withdraw(decimal balance)
 {
     Console.Write("How much money would you like to withdraw?: ");
     int withdrawalAmmount = Convert.ToInt32(Console.ReadLine());
@@ -72,50 +87,50 @@ static void Withdraw()
     {
         balance = balance - withdrawalAmmount;
         Console.Write($"You have taken out ${withdrawalAmmount}. Your remaining balance is {balance}.");
-        return;
+        return balance;
     }
     else
     {
         Console.WriteLine("You do not have sufficient funds.");
-        return;
+        return balance;
     }
 }
 
-static void Deposit()
+static decimal Deposit(decimal balance)
 {
     Console.Write("How much money would you like to deposit?: ");
     int depositAmmount = Convert.ToInt32(Console.ReadLine());
     balance = balance + depositAmmount;
     Console.Write($"You have deposited ${depositAmmount}. Your remaining balance is {balance}.");
-    return;
+    return balance;
 }
 
-static void QuickWithdraw40()
+static decimal QuickWithdraw40(decimal balance)
 {
     if (balance >= 40)
     {
         balance = balance - 40;
         Console.WriteLine($"Transaction successful. Remaining balance is ${balance}.");
-        return;
+        return balance;
     }
     else
     {
         Console.WriteLine("Insufficient funds.");
-        return;
+        return balance;
     }
 }
 
-static void QuickWithdraw100()
+static decimal QuickWithdraw100(decimal balance)
 {
     if (balance >= 100)
     {
         balance = balance - 100;
         Console.WriteLine($"Transaction successful. Remaining balance is ${balance}.");
-        return;
+        return balance;
     }
     else
     {
         Console.WriteLine("Insufficient funds.");
-        return;
+        return balance;
     }
 }

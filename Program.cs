@@ -35,3 +35,15 @@ while (!loggedIn && attempts > 0)
         }
     }
 }
+
+if (loggedIn)
+{
+    Console.WriteLine(@"
+    1 - Check Balance
+    2 - Withdraw
+    3 - Deposit
+    4 - Display last 5 transactions
+    5 - Quick Withdraw $40
+    6 - Quick Withdraw $100
+    7 - End current session");
+}

@@ -59,19 +59,22 @@ while(loggedIn)
             CheckBalance(balance);
             break;
         case 2:
-            balance = Withdraw(balance);
+            balance = Withdraw(balance, usernameInput);
             SaveBalance(usernameInput, balance, lines);
             break;
         case 3:
-            balance = Deposit(balance);
+            balance = Deposit(balance, usernameInput);
             SaveBalance(usernameInput, balance, lines);
             break;
+        case 4:
+            ShowLastTransactions(usernameInput);
+            break;
         case 5:
-            balance = QuickWithdraw40(balance);
+            balance = QuickWithdraw40(balance, usernameInput);
             SaveBalance(usernameInput, balance, lines);
             break;
         case 6:
-            balance = QuickWithdraw100(balance);
+            balance = QuickWithdraw100(balance, usernameInput);
             SaveBalance(usernameInput, balance, lines);
             break;
         case 7:
@@ -91,7 +94,7 @@ static decimal CheckBalance(decimal balance)
     return balance;
 }
 
-static decimal Withdraw(decimal balance)
+static decimal Withdraw(decimal balance, string usernameInput)
 {
     Console.Write("How much money would you like to withdraw?: ");
     int withdrawalAmmount = Convert.ToInt32(Console.ReadLine());
@@ -99,6 +102,7 @@ static decimal Withdraw(decimal balance)
     {
         balance = balance - withdrawalAmmount;
         Console.Write($"You have taken out ${withdrawalAmmount}. Your remaining balance is {balance}.");
+        File.AppendAllText($"{usernameInput}_transactions.txt", $"{DateTime.Now} - withdrew ${withdrawalAmmount}\n"); // I got the 'AppendAllText' online because I couldn't figure out how to add text without overwriting it. 'WriteAllText would overwrite instead of add.
         return balance;
     }
     else
@@ -108,21 +112,23 @@ static decimal Withdraw(decimal balance)
     }
 }
 
-static decimal Deposit(decimal balance)
+static decimal Deposit(decimal balance, string usernameInput)
 {
     Console.Write("How much money would you like to deposit?: ");
     int depositAmmount = Convert.ToInt32(Console.ReadLine());
     balance = balance + depositAmmount;
     Console.Write($"You have deposited ${depositAmmount}. Your remaining balance is {balance}.");
+    File.AppendAllText($"{usernameInput}_transactions.txt", $"{DateTime.Now} - deposited ${depositAmmount}\n");
     return balance;
 }
 
-static decimal QuickWithdraw40(decimal balance)
+static decimal QuickWithdraw40(decimal balance, string usernameInput)
 {
     if (balance >= 40)
     {
         balance = balance - 40;
         Console.WriteLine($"Transaction successful. Remaining balance is ${balance}.");
+        File.AppendAllText($"{usernameInput}_transactions.txt", $"{DateTime.Now} - quick withdrew $40\n");
         return balance;
     }
     else
@@ -132,12 +138,13 @@ static decimal QuickWithdraw40(decimal balance)
     }
 }
 
-static decimal QuickWithdraw100(decimal balance)
+static decimal QuickWithdraw100(decimal balance, string usernameInput)
 {
     if (balance >= 100)
     {
         balance = balance - 100;
         Console.WriteLine($"Transaction successful. Remaining balance is ${balance}.");
+        File.AppendAllText($"{usernameInput}_transactions.txt", $"{DateTime.Now} - quick withdrew $100\n");
         return balance;
     }
     else
@@ -160,4 +167,19 @@ static void SaveBalance(string username, decimal newBalance, string[] lines)
         }
     }
     File.WriteAllLines("bank.txt", lines);
+}
+
+static void ShowLastTransactions(string usernameInput)
+{
+    if (File.Exists($"{usernameInput}_transactions.txt"))
+    {
+        string[] transactions = File.ReadAllLines($"{usernameInput}_transactions.txt");
+        int count = Math.Min(5, transactions.Length);
+        for (int i = transactions.Length - count; i < transactions.Length; i++)
+            Console.WriteLine(transactions[i]);
+    }
+    else
+    {
+        Console.Write("No transactions found.");
+    }
 }

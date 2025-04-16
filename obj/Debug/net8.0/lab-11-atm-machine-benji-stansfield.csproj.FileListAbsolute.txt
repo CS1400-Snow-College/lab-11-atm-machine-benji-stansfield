@@ -1,0 +1,15 @@
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\bin\Debug\net8.0\lab-11-atm-machine-benji-stansfield.exe
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\bin\Debug\net8.0\lab-11-atm-machine-benji-stansfield.deps.json
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\bin\Debug\net8.0\lab-11-atm-machine-benji-stansfield.runtimeconfig.json
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\bin\Debug\net8.0\lab-11-atm-machine-benji-stansfield.dll
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\bin\Debug\net8.0\lab-11-atm-machine-benji-stansfield.pdb
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\obj\Debug\net8.0\lab-11-atm-machine-benji-stansfield.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\obj\Debug\net8.0\lab-11-atm-machine-benji-stansfield.AssemblyInfoInputs.cache
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\obj\Debug\net8.0\lab-11-atm-machine-benji-stansfield.AssemblyInfo.cs
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\obj\Debug\net8.0\lab-11-atm-machine-benji-stansfield.csproj.CoreCompileInputs.cache
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\obj\Debug\net8.0\lab-11-atm-machine-benji-stansfield.sourcelink.json
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\obj\Debug\net8.0\lab-11-atm-machine-benji-stansfield.dll
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\obj\Debug\net8.0\refint\lab-11-atm-machine-benji-stansfield.dll
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\obj\Debug\net8.0\lab-11-atm-machine-benji-stansfield.pdb
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\obj\Debug\net8.0\lab-11-atm-machine-benji-stansfield.genruntimeconfig.cache
+C:\Users\benji\code\my-code-dir\lab-11-atm-machine-benji-stansfield\obj\Debug\net8.0\ref\lab-11-atm-machine-benji-stansfield.dll

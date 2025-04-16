@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("lab-11-atm-machine-benji-stansfield")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+94afbffb34aa8bb4ba36d5e299dace3cc7695328")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6ed0ddfe92c62efd4f4c6e5ad61623f2cdd8eff8")]
 [assembly: System.Reflection.AssemblyProductAttribute("lab-11-atm-machine-benji-stansfield")]
 [assembly: System.Reflection.AssemblyTitleAttribute("lab-11-atm-machine-benji-stansfield")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

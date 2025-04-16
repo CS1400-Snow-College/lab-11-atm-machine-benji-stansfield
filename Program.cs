@@ -6,11 +6,12 @@ string[] lines = File.ReadAllLines("bank.txt");
 int attempts = 3;
 bool loggedIn = false;
 decimal balance = 0;
+string usernameInput = "";
 
 while (!loggedIn && attempts > 0)
 {
     Console.Write("Username: ");
-    string usernameInput = Console.ReadLine();
+    usernameInput = Console.ReadLine();
     Console.Write("Pin #: ");
     string pinInput = Console.ReadLine();
 
@@ -58,16 +59,27 @@ while(loggedIn)
             CheckBalance(balance);
             break;
         case 2:
-            Withdraw(balance);
+            balance = Withdraw(balance);
+            SaveBalance(usernameInput, balance, lines);
             break;
         case 3:
-            Deposit(balance);
+            balance = Deposit(balance);
+            SaveBalance(usernameInput, balance, lines);
             break;
         case 5:
-            QuickWithdraw40(balance);
+            balance = QuickWithdraw40(balance);
+            SaveBalance(usernameInput, balance, lines);
             break;
         case 6:
-            QuickWithdraw100(balance);
+            balance = QuickWithdraw100(balance);
+            SaveBalance(usernameInput, balance, lines);
+            break;
+        case 7:
+            Console.WriteLine("Session ended.");
+            loggedIn = false;
+            break;
+        default:
+            Console.WriteLine("Invalid option.");
             break;
     }
 
@@ -133,4 +145,19 @@ static decimal QuickWithdraw100(decimal balance)
         Console.WriteLine("Insufficient funds.");
         return balance;
     }
+}
+
+static void SaveBalance(string username, decimal newBalance, string[] lines)
+{
+    for (int i = 0; i < lines.Length; i++)
+    {
+        string[] parts = lines[i].Split(',');
+        if (parts[0] == username)
+        {
+            parts[2] = newBalance.ToString();
+            lines[i] = string.Join(",", parts);
+            break;
+        }
+    }
+    File.WriteAllLines("bank.txt", lines);
 }

@@ -1,5 +1,18 @@
 ﻿/*Benji Stansfield, 04-09-25, Lab 11 "ATM Machine"*/
 
+using System.Diagnostics;
+using System.Threading.Tasks.Dataflow;
+
+/*tests*/
+Debug.Assert(QuickWithdraw100(100, "tester") == 0 == true,"Quick 100 arithmetic off");
+Debug.Assert(QuickWithdraw100(50, "tester") == 50 == true, "Quick 100 arithmetic off");
+Debug.Assert(QuickWithdraw100(50, "tester") == -50 == false, "Negative number in quick 100");
+Debug.Assert(Withdraw(100, 70, "tester") == 30 == true, "Withdraw arithmetic off");
+Debug.Assert(Withdraw(100, 110, "tester") == -10 == false, "Negative number in withdraw");
+Debug.Assert(Withdraw(50, -30, "tester") == 80 == false, "Cannot subtract a negative number");
+Debug.Assert(Deposit(100, 25, "tester") == 125 == true, "Deposit arithmetic off");
+Debug.Assert(Deposit(50, -30, "tester") == 20 == false, "Cannot add a negative number");
+
 Console.Clear();
 
 string[] lines = File.ReadAllLines("bank.txt");
@@ -7,6 +20,7 @@ int attempts = 3;
 bool loggedIn = false;
 decimal balance = 0;
 string usernameInput = "";
+bool userFound = false;
 
 while (!loggedIn && attempts > 0)
 {
@@ -26,16 +40,17 @@ while (!loggedIn && attempts > 0)
         {   
             balance = Convert.ToDecimal(parts[2]);
             Console.Write("Sign in successful");
+            userFound = true;
             loggedIn = true;
             break;
         }
-        else
-        {
-            Console.WriteLine("Username or pin not recognized.");
-            attempts--;
-            Console.WriteLine($"{attempts} attempts remaining");
-            break;
-        }
+    }
+    if (!userFound)
+    {
+        Console.WriteLine("Username or pin not recognized.");
+        attempts--;
+        Console.WriteLine($"{attempts} attempts remaining");
+        break;
     }
 }
 
@@ -59,11 +74,15 @@ while(loggedIn)
             CheckBalance(balance);
             break;
         case 2:
-            balance = Withdraw(balance, usernameInput);
+            Console.Write("How much money would you like to withdraw?: ");
+            int withdrawalAmmount = Convert.ToInt32(Console.ReadLine());
+            balance = Withdraw(balance, withdrawalAmmount, usernameInput);
             SaveBalance(usernameInput, balance, lines);
             break;
         case 3:
-            balance = Deposit(balance, usernameInput);
+            Console.Write("How much money would you like to deposit?: ");
+            int depositAmmount = Convert.ToInt32(Console.ReadLine());
+            balance = Deposit(balance, depositAmmount, usernameInput);
             SaveBalance(usernameInput, balance, lines);
             break;
         case 4:
@@ -94,11 +113,9 @@ static decimal CheckBalance(decimal balance)
     return balance;
 }
 
-static decimal Withdraw(decimal balance, string usernameInput)
+static decimal Withdraw(decimal balance, int withdrawalAmmount, string usernameInput)
 {
-    Console.Write("How much money would you like to withdraw?: ");
-    int withdrawalAmmount = Convert.ToInt32(Console.ReadLine());
-    if (withdrawalAmmount <= balance)
+    if (withdrawalAmmount <= balance && withdrawalAmmount > 0)
     {
         balance = balance - withdrawalAmmount;
         Console.Write($"You have taken out ${withdrawalAmmount}. Your remaining balance is {balance}.");
@@ -112,14 +129,20 @@ static decimal Withdraw(decimal balance, string usernameInput)
     }
 }
 
-static decimal Deposit(decimal balance, string usernameInput)
-{
-    Console.Write("How much money would you like to deposit?: ");
-    int depositAmmount = Convert.ToInt32(Console.ReadLine());
-    balance = balance + depositAmmount;
-    Console.Write($"You have deposited ${depositAmmount}. Your remaining balance is {balance}.");
-    File.AppendAllText($"{usernameInput}_transactions.txt", $"{DateTime.Now} - deposited ${depositAmmount}\n");
-    return balance;
+static decimal Deposit(decimal balance, int depositAmmount, string usernameInput)
+{   
+    if (depositAmmount > 0)
+    {
+        balance = balance + depositAmmount;
+        Console.Write($"You have deposited ${depositAmmount}. Your remaining balance is {balance}.");
+        File.AppendAllText($"{usernameInput}_transactions.txt", $"{DateTime.Now} - deposited ${depositAmmount}\n");
+        return balance;
+    }
+    else
+    {
+        Console.WriteLine("Please input a real number.");
+        return balance;
+    }
 }
 
 static decimal QuickWithdraw40(decimal balance, string usernameInput)
